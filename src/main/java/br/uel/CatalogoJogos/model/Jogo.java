@@ -11,7 +11,7 @@ public class Jogo {
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
+//inserir validações
     @Column(nullable = false)
     private String titulo;
 
