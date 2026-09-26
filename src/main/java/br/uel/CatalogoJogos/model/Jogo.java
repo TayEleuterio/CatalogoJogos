@@ -11,17 +11,20 @@ public class Jogo {
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//inserir validações
+    @NotBlank(message = " O título é obrigatório.")
     @Column(nullable = false)
     private String titulo;
 
-
+    @NotBlank(message = " O gênero é obrigatório.")
     @Column(nullable = false)
     private String genero;
 
-
+    @NotBlank(message = " O preço é obrigatório.")
+    @PositiveOrZero(message = " O preço não pode ser negativo.")
     @Column(nullable = false)
     private Double preco;
+
+    @PastOrPresent(message = " A data de lançamento não pode ser futura.")
 
 
     private  LocalDate dataLancamento;
