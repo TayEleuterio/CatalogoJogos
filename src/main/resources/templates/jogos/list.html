@@ -67,7 +67,6 @@
                     <td th:text="${'R$ ' + #numbers.formatDecimal(jogo.preco, 1, 'POINT', 2, 'COMMA')}">R$ 19,99</td>
                     <td th:text="${#temporals.format(jogo.dataLancamento, 'dd/MM/yyyy')}">01/01/2020</td>
                     <td class="text-end">
-
                         //incluir botão para abrir tela de edição
 
                         <a th:href="@{/jogos/excluir/{id}(id=${jogo.id})}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Tem certeza que deseja excluir este jogo?')"><i class="bi bi-trash"></i></a>
