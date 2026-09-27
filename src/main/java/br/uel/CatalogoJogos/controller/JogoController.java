@@ -1,7 +1,7 @@
 package br.uel.CatalogoJogos.controller;
 
-import br.edu.uel.jogos.model.Jogo;
-import br.edu.uel.jogos.service.JogoService;
+import br.uel.CatalogoJogos.model.Jogo;
+import br.uel.CatalogoJogos.service.JogoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,15 +10,23 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
 @Controller
 @RequestMapping("/jogos")
 public class JogoController {
     @Autowired
-    private JJogoService service;
+    private JogoService service;
 
-    //Rota de Listagem, Ordenação e Pesquisa
-
+    @GetMapping
+    public  String listarJogos(@RequestParam(required = false) String buscar,
+                               @RequestParam(defaultValue = "titulo") String ordem,
+                               @RequestParam(defaultValue = "asc") String dir,
+                               Model model) {
+        model.addAttribute("jogos", service.buscarEOrdenar(buscar, ordem, dir));
+        model.addAttribute("buscar", buscar);
+        model.addAttribute("ordem", ordem);
+        model.addAttribute("dir", dir);
+        return "jogos/list";
+}
 
     @GetMapping("/novo")
     public String novoJogo(Model model) {
@@ -32,7 +40,6 @@ public class JogoController {
         return "jogos/form";
     }
 
-
     @PostMapping("/salvar")
     public String salvarJogo(@Valid @ModelAttribute("jogo") Jogo jogo,
                              BindingResult result,
@@ -45,6 +52,10 @@ public class JogoController {
         return "redirect:/jogos";
     }
 
-    //Rota para excluir registro
-
+    @GetMapping("/excluir/{id}")
+    public String excluirJogo(@PathVariable Long id, RedirectAttributes redirect) {
+        service.excluir(id);
+        redirect.addFlashAttribute("mensagemSucesso", "Jogo excluído com sucesso!");
+        return "redirect:/jogos";
+    }
 }
