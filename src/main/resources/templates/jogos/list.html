@@ -23,15 +23,15 @@
           <a class="navbar-brand fw-bold text-uppercase" href="#" th:href="@{/jogos}">
               <i class="bi bi-controller text-primary me-2"></i>Game Catalog
          </a>
-
-          // incluir botão para abrir o formulário de cadastro
-
+          <a th:href="@{/jogos/novo}" class="btn btn-purple"><i class="bi bi-plus-lg me-1"></i>Novo Jogo</a>
         </div>
     </nav>
     <div class="container"></div>
-
         //incluir exibição de mensagens de sucesso do cadastro
-
+    <div th:if="${mensagemSucesso}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i><span th:text="${mensagemSucesso}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
     <div class="row mb-4">
         <div class="col-md-6"></div>
             <form th:action="@{/jogos}" method="get" class="d-flex gap-2">
@@ -46,13 +46,9 @@
             <thead>
                 <tr>
                     <th>Capa</th>
-
-                    //incluir link para ordenar por título
-
+                    <th><a th:href="@{/jogos(ordem='titulo', dir=${ordem == 'titulo' and dir == 'asc' ? 'desc' : 'asc'}, buscar=${buscar})}" class="text-decoration-none text-light">Título <i class="bi bi-arrow-down-up ms-1"></i></a></th>
                     <th>Gênero</th>
-
-                    //incluir link para ordenar por valor
-
+                    <th><a th:href="@{/jogos(ordem='preco', dir=${ordem == 'preco' and dir == 'asc' ? 'desc' : 'asc'}, buscar=${buscar})}" class="text-decoration-none text-light">Preço <i class="bi bi-arrow-down-up ms-1"></i></a></th>
                     <th>Lançamento</th>
                     <th class="text-end">Ações</th>
                 </tr>
@@ -67,8 +63,7 @@
                     <td th:text="${'R$ ' + #numbers.formatDecimal(jogo.preco, 1, 'POINT', 2, 'COMMA')}">R$ 19,99</td>
                     <td th:text="${#temporals.format(jogo.dataLancamento, 'dd/MM/yyyy')}">01/01/2020</td>
                     <td class="text-end">
-                        //incluir botão para abrir tela de edição
-
+                        <a th:href="@{/jogos/editar/{id}(id=${jogo.id})}" class="btn btn-sm btn-outline-warning me-1"><i class="bi bi-pencil"></i></a>
                         <a th:href="@{/jogos/excluir/{id}(id=${jogo.id})}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Tem certeza que deseja excluir este jogo?')"><i class="bi bi-trash"></i></a>
                     </td>
                 </tr>
@@ -78,3 +73,4 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
