@@ -25,9 +25,8 @@ public class Jogo {
     private Double preco;
 
     @PastOrPresent(message = " A data de lançamento não pode ser futura.")
-
-
     private  LocalDate dataLancamento;
+
     @Column(length = 1500)
     private  String urlCapa;
 
