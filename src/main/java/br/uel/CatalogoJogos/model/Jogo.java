@@ -28,7 +28,7 @@ public class Jogo {
 
 
     private  LocalDate dataLancamento;
-
+    @Column(length = 1500)
     private  String urlCapa;
 
     @Column(columnDefinition = "TEXT")
