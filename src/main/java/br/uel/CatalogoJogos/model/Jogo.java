@@ -19,7 +19,7 @@ public class Jogo {
     @Column(nullable = false)
     private String genero;
 
-    @NotBlank(message = " O preço é obrigatório.")
+    @NotNull(message = " O preço é obrigatório.")
     @PositiveOrZero(message = " O preço não pode ser negativo.")
     @Column(nullable = false)
     private Double preco;

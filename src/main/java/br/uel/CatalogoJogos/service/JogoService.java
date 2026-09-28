@@ -28,16 +28,15 @@ public class JogoService {
     }
 
     //salvar ou atualizar jogo
-    public Jogo salvar(Jogo Jogo) {
-        return Repository.save(jogo);
+    public Jogo salvar(Jogo jogo) {
+        return jogoRepository.save(jogo);
     }
 
     //busca por ID para edição
     public  Jogo buscarPorId(Long id){
-        return repository.finbyId(id)
+        return jogoRepository.findById(id)
                 .orElseThrow(()  -> new IllegalArgumentException("jogo não encontrado com o ID; " + id));
     }
-
 
     //excluir por id
     public void excluir(Long id) {
